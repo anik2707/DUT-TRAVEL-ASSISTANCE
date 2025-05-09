@@ -1,0 +1,73 @@
+
+
+<div class="target-animation" id="target-icon">
+        <img src="../static/images/log_sign.jpeg" alt="Target Icon">
+        <div class="user-details">
+            <span><strong>User ID:</strong> {{ user.id }}</span>
+            <span><strong>Password:</strong> {{ user.password }}</span>
+            <span><strong>Phone Number:</strong> {{ user.phone }}</span>
+        </div>
+    </div>
+
+    <script>
+        // Start bike animation
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById("bike").classList.add("animate-bike");
+                setTimeout(function() {
+                    document.getElementById("target-icon").classList.add("show-target");
+                }, 1500);
+            }, 1000);
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Created</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #f0f8ff; }
+
+        .message {
+            font-size: 24px;
+            color: green;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            animation-delay: 1s;
+        }
+
+        .arrow {
+            margin-top: 50px;
+            font-size: 50px;
+            opacity: 0;
+            animation: slideIn 1s forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✅ Account Created Successfully</h1>
+    <div class="message">Welcome!</div>
+    <div class="arrow">➡️</div>
+
+    <script>
+        // Redirect to login page after 5 seconds
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 5000);
+    </script>
+</body>
+</html>

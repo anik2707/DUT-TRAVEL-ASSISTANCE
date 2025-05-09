@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DUT | Home</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="home-body">
+    
+
+    <!-- Header with logo and gradient -->
+    <header class="main-header">
+        <img src="../static/images/dut_logo.jpeg"  class="logo">
+        <h1 class="title">DUT</h1>
+    </header>
+
+    <!-- Transparent Welcome Card -->
+    <div class="overlay-card">
+        <h2>Welcome, Traveler!</h2>
+        <p>"Your journey is safe, with DUT by your side."</p>
+        <div class="button-section">
+            <a href="{{ url_for('login') }}" class="btn">Log In</a>
+            <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Footer with animated helpline info -->
+    <footer class="helpline-box">
+        <h3>Important Helpline Numbers</h3>
+        <ul style="display: flex; flex-wrap: wrap; list-style: none; padding: 0;">
+            <li style="margin-right: 20px;">🚔 Police: <strong>100</strong></li>
+            <li>🚑 Ambulance: <strong>102</strong></li>
+        </ul>
+        <ul style="display: flex; flex-wrap: wrap; list-style: none; padding: 0;">
+            <li style="margin-right: 20px;">🛣 Highway Help: <strong>1033</strong></li>
+            <li>🔥 Fire Brigade: <strong>101</strong></li>
+        </ul>
+    </footer>
+
+    <!-- Button delay animation -->
+    <script>
+        window.onload = function () {
+            setTimeout(() => {
+                document.querySelector('.button-section').style.opacity = 1;
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

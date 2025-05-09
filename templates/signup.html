@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - DUT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #00aaff, #ffe600, #ff69b4, #8b00ff);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+      animation: sparkle 4s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+
+    .header {
+      width: 100%;
+      background-color: #ffffff;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+      color: #007bff;
+      letter-spacing: 2px;
+      font-weight: 700;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    .profile-upload {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    @keyframes bikeMove {
+      0% { transform: translateX(-150%); }
+      100% { transform: translateX(150%); }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>DUT</h1>
+  </header>
+
+<form class="card" action="/signup" method="POST" enctype="multipart/form-data">
+    <h2>Create Your Account</h2>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" required />
+    </div>
+    <div class="form-group">
+      <label for="aadhar">Aadhar Number</label>
+      <input type="text" id="aadhar" name="adhar" required />
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" name="phone" required />
+    </div>
+    <div class="form-group">
+      <label for="vehicle">Vehicle Number</label>
+      <input type="text" id="vehicle" name="vehicle" required />
+    </div>
+    <div class="form-group">
+      <label for="username">Username(email id)</label>
+      <input type="text" id="username" name="username" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+    <div class="form-group">
+      <label for="profile_pic">Profile Picture</label>
+      <div class="profile-upload">
+        <input type="file" name="profile_pic" accept="image/*" capture="user" />
+      </div>
+    </div>
+    <button type="submit" class="btn">Sign Up</button>
+  </form>
+
+  <script>
+    function createSparkles() {
+      const body = document.querySelector('body');
+      const sparkleCount = 20;
+      for (let i = 0; i < sparkleCount; i++) {
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 4 + 's';
+        body.appendChild(sparkle);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      createSparkles();
+
+      const registered = "{{ registered|lower }}" === "true";
+      if (registered) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+        overlay.style.zIndex = '9999';
+        overlay.style.display = 'flex';
+        overlay.style.flexDirection = 'column';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.innerHTML = `
+          <h2 style="font-size: 2em; color: #28a745; margin-bottom: 20px;">✅ Account Created Successfully!</h2>
+          <img src="{{ url_for('static', filename='images/bike.jpeg') }}" alt="MITRA" style="width: 100px; animation: bikeMove 3s linear forwards;" />
+          <p style="margin-top: 15px;">Redirecting to login...</p>
+        `;
+        document.body.appendChild(overlay);
+
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+      }
+    });
+  </script>
+</body>
+</html>

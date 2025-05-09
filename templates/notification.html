@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DUT - Notifications</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+      padding: 15px;
+      border-radius: 15px;
+      color: #000;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .notifications-list {
+      margin-top: 20px;
+    }
+
+    .notification-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #f2f2f2;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item p {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .notification-item button {
+      background: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+
+    .notification-item button:hover {
+      background: #45a049;
+    }
+
+    .notification-item button.call-btn {
+      background-color: #2196f3;
+    }
+
+    .notification-item button.call-btn:hover {
+      background-color: #1976d2;
+    }
+
+    .notification-item button:disabled {
+      background: #ddd;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .footer button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .footer button:hover {
+      background-color: #e53e30;
+    }
+
+    /* Toast styles */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 25px;
+      padding: 16px;
+      position: fixed;
+      z-index: 999;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s, bottom 0.5s;
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>DUT- Notifications</div>
+    </div>
+
+    <div class="notifications-list" id="notificationsList">
+      <!-- Notifications will be dynamically added here -->
+    </div>
+
+    <div class="footer">
+      <button onclick="redirectWithFade()">⬅️ Back to Dashboard</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Returning to Dashboard...</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script>
+    let socket = io.connect('http://localhost:5000');
+
+    socket.on('new_sos', (sosData) => {
+      displayNotification(sosData);
+    });
+
+    function displayNotification(sosData) {
+      const notificationList = document.getElementById('notificationsList');
+
+      const notificationItem = document.createElement('div');
+      notificationItem.classList.add('notification-item');
+
+      const helpMessage = document.createElement('p');
+      helpMessage.textContent = `Help request for ${sosData.help_type} received nearby.`;
+
+
+
+      const acceptButton = document.createElement('button');
+      acceptButton.textContent = '✅ Accept Help';
+      acceptButton.onclick = () => acceptHelpRequest(sosData);
+
+const callButton = document.createElement('button');
+      callButton.textContent = '📞 Call';
+      callButton.classList.add('call-btn');
+      callButton.onclick = () => callUser(sosData);
+
+      notificationItem.appendChild(helpMessage);
+      notificationItem.appendChild(acceptButton);
+      notificationItem.appendChild(callButton);
+
+      notificationList.appendChild(notificationItem);
+    }
+
+    function acceptHelpRequest(sosData) {
+      alert(`You accepted help for ${sosData.help_type} from user ID: ${sosData.user_id}`);
+    }
+
+    function callUser(sosData) {
+      const phoneNumber = sosData.phone_number;
+      if (phoneNumber) {
+        window.location.href = `tel:${phoneNumber}`;
+      } else {
+        alert("No phone number available.");
+      }
+    }
+
+    function redirectWithFade() {
+      // Show toast
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+
+      // Fade out after delay
+      setTimeout(() => {
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 500);
+      }, 1000);
+    }
+
+    // Simulated SOS for demo
+    setTimeout(() => {
+      const sosData = {
+        help_type: 'Fuel',
+        location: { lat: 28.6139, lon: 77.2090 },
+        user_id: 1,
+        phone_number: '1234567890'
+      };
+      socket.emit('send_sos', sosData);
+    }, 5000);
+  </script>
+</body>
+</html>

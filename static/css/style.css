@@ -1,0 +1,166 @@
+
+
+/* Body with background image */
+body.home-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+   /* background-image: url('../images/bg.jpg');*/
+    
+   /* background-image: url('/static/images/sunset-landscape-in-desert-with-mountains-and-curved-road-vector.jpg'); /* আপনার কাঙ্ক্ষিত ব্যাকগ্রাউন্ড ইমেজ */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    color: rgb(201, 22, 22);
+}
+
+.home-body {
+    /*background-image: url('/static/images/sunset-landscape-in-desert-with-mountains-and-curved-road-vector.jpg');*/
+    /*background-image: url('/static/images/Laeacco-Summer-Sea-Beach-Waves-Scenic-Photography-Backgrounds-Customized-Digital-Photographic-Backdrops-For-Photo-Studio.avif');*/
+    background-image: url('../images/sunflower.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+   
+    background-color: #f0f0f0; 
+}
+
+
+
+
+
+
+/*.home-body {
+   / background-image: url('/static/images/sunset-landscape-in-desert-with-mountains-and-curved-road-vector.jpg');*/
+  /* background-image: coral;
+   background-size: cover; 
+    background-repeat: no-repeat; 
+}*/
+
+/* Header bar with gradient */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: linear-gradient(to right, #1e90ff, #ffea00);
+    padding: 15px 30px;
+    box-shadow: 0 2px 5px rgba(192, 54, 54, 0.2);
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Transparent welcome card */
+.overlay-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 40px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+
+    background-image: url('../images/log_sign.jpeg');
+    /*background-image: url('/static/images/Laeacco-Summer-Sea-Beach-Waves-Scenic-Photography-Backgrounds-Customized-Digital-Photographic-Backdrops-For-Photo-Studio.avif');*/
+    background-size: cover; 
+    background-repeat: no-repeat;
+    
+    color: white; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.overlay-card h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    
+    color: #f5f0f3;
+    text-shadow: 2px 2px 4px rgba(170, 134, 26, 0.849);
+    font-family: "Harlow Solid Italic", Arial rgb(120, 14, 14), sans-serif; 
+    animation: bounce 1s ease-in-out;
+    background: linear-gradient(to right, #ff6b6b, #ffa07a);
+
+}
+
+.overlay-card p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    font-style: italic;
+    background: linear-gradient(to right, #c5a60c, #ffa07a);
+}
+
+@font-face {
+    font-family: "Harlow Solid Italic";
+    src: url('/static/fonts/harlow-solid-italic.ttf') format('truetype'); 
+    font-style: italic; 
+    font-weight: normal; 
+}
+
+/* Button section */
+.button-section {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 12px 25px;
+    margin: 0 10px;
+    background-color: #ff6b81;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e04865;
+}
+
+/* Animated helpline footer */
+.helpline-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    height:15%;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+    color: #b9af5a;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: #e74c3c;
+    animation: bgChange 9s infinite;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+.helpline-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+}
+
+.helpline-box li {
+    margin: 5px 0;
+}
+
+@keyframes bgChange {
+    0%   { background-color: #e74c3c; }
+    33%  { background-color: #27ae60; }
+    66%  { background-color: #2980b9; }
+    100% { background-color: #e74c3c; }
+}
